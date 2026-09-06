@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#111311" />
+    <meta
+      name="description"
+      content="Go beneath the surface. An interactive, procedurally crafted mechanical timepiece by ChronoCore."
+    />
+    <title>ChronoCore — Time, deconstructed.</title>
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23111311'/%3E%3Ccircle cx='32' cy='32' r='21' fill='none' stroke='%23d6ac86' stroke-width='3'/%3E%3Cpath d='M32 16v17l11 7' fill='none' stroke='%23d6ac86' stroke-width='3'/%3E%3C/svg%3E"
+    />
+  </head>
+  <body>
+    <header class="header">
+      <a class="wordmark" href="./" aria-label="ChronoCore home"
+        ><span class="brand-symbol">C<span>•</span></span
+        >CHRONOCORE</a
+      >
+      <nav aria-label="Main navigation">
+        <button class="nav-link active" data-section="experience">
+          The experience</button
+        ><button class="nav-link" data-section="craft">The craft</button>
+      </nav>
+      <button class="about-link" id="about-open">
+        Inside the calibre <span>↗</span>
+      </button>
+    </header>
+    <main>
+      <section
+        class="experience"
+        id="experience"
+        aria-label="Interactive watch experience"
+      >
+        <div class="intro">
+          <div class="eyebrow">
+            <span class="hairline"></span> MECHANICAL BY NATURE
+          </div>
+          <h1>Time,<br /><span>deconstructed.</span></h1>
+          <p>
+            A study in precision.<br />
+            An invitation to look closer.
+          </p>
+          <button class="primary" id="explore">
+            Explore the movement <span>↗</span>
+          </button>
+          <div class="model-caption">
+            <span class="tiny">THE CHRONOCORE COLLECTION</span
+            ><strong>Calibre 01 <span>/</span> Skeleton</strong
+            ><span class="model-note"
+              >Nothing hidden. Everything connected.</span
+            >
+          </div>
+        </div>
+        <div class="stage" id="stage">
+          <div class="stage-halo" aria-hidden="true"></div>
+          <div class="stage-grid" aria-hidden="true"></div>
+          <div
+            id="canvas-host"
+            role="img"
+            aria-label="Interactive 3D skeleton watch. Drag to rotate, scroll or pinch to zoom. Use arrow keys to rotate, plus and minus to zoom, and R to reset."
+            tabindex="0"
+          ></div>
+          <div class="loading" id="loading">
+            <span class="loading-ring"></span>Assembling your timepiece
+          </div>
+          <div class="stage-top">
+            <span class="live-dot"></span
+            ><span id="live-label">MOVEMENT RUNNING</span>
+          </div>
+          <div class="stage-number" aria-hidden="true">01</div>
+          <div class="view-controls" aria-label="Camera view">
+            <button
+              class="selected"
+              data-view="perspective"
+              aria-pressed="true"
+            >
+              Perspective</button
+            ><button data-view="front" aria-pressed="false">Dial</button
+            ><button data-view="back" aria-pressed="false">Caseback</button>
+          </div>
+          <div class="zoom-controls">
+            <button id="zoom-in" aria-label="Zoom in">+</button
+            ><button id="zoom-out" aria-label="Zoom out">−</button
+            ><button id="reset" aria-label="Reset view" title="Reset view (R)">
+              ↺
+            </button>
+          </div>
+          <div class="gesture-hint">
+            <span>↔</span> Drag to rotate <i></i> Scroll to zoom
+          </div>
+          <div class="part-label" id="part-label" hidden></div>
+        </div>
+        <aside class="spec-rail" aria-label="Calibre concept specifications">
+          <div>
+            <span class="tiny">CASE DIAMETER</span
+            ><strong>42<span> mm</span></strong>
+          </div>
+          <div>
+            <span class="tiny">FREQUENCY</span
+            ><strong>28,800<span> vph</span></strong>
+          </div>
+          <div>
+            <span class="tiny">POWER RESERVE</span
+            ><strong>72<span> hours</span></strong>
+          </div>
+          <span class="vertical-caption">ENGINEERED TO BE SEEN</span>
+        </aside>
+        <div class="control-dock">
+          <div class="assembly-control">
+            <span class="tiny">ASSEMBLY</span
+            ><button id="explode" aria-pressed="false">
+              <span class="assembly-icon">≋</span
+              ><span id="explode-text">Explode view</span>
+            </button>
+          </div>
+          <div class="separation-control">
+            <label for="separation"
+              >Deconstruction <output id="separation-value">0%</output></label
+            ><input
+              type="range"
+              id="separation"
+              min="0"
+              max="100"
+              value="0"
+              aria-label="Deconstruction"
+            />
+            <div class="range-labels">
+              <span>Assembled</span><span>Exploded</span>
+            </div>
+          </div>
+          <fieldset class="finish-control">
+            <legend class="tiny">CASE FINISH</legend>
+            <div class="swatches">
+              <button
+                class="swatch selected"
+                data-finish="titanium"
+                aria-label="Brushed titanium"
+                aria-pressed="true"
+                title="Brushed titanium"
+              ></button
+              ><button
+                class="swatch gold"
+                data-finish="gold"
+                aria-label="Rose gold"
+                aria-pressed="false"
+                title="Rose gold"
+              ></button
+              ><button
+                class="swatch black"
+                data-finish="black"
+                aria-label="Midnight ceramic"
+                aria-pressed="false"
+                title="Midnight ceramic"
+              ></button
+              ><span id="finish-label">Titanium</span>
+            </div>
+          </fieldset>
+          <div class="motion-controls">
+            <button id="auto-rotate" aria-pressed="false">
+              <span>⟳</span> Auto-rotate</button
+            ><button id="play" aria-pressed="true" aria-label="Pause movement">
+              <span id="play-icon">Ⅱ</span><span id="play-label">Pause</span>
+            </button>
+          </div>
+        </div>
+      </section>
+      <section class="craft" id="craft">
+        <div class="craft-heading">
+          <span class="eyebrow">THE BEAUTY OF WHAT LIES BENEATH</span>
+          <h2>
+            Every part has a purpose.<br /><span>Every second, a story.</span>
+          </h2>
+        </div>
+        <div class="craft-detail">
+          <p>
+            Follow the rhythm of the balance wheel. Trace the turning gear
+            train. Separate the layers to discover how a collection of
+            individual parts becomes a single, living mechanism.
+          </p>
+          <button class="text-link" id="craft-explore">
+            Take it apart <span>↗</span>
+          </button>
+        </div>
+        <div class="craft-foot">
+          <span>A digital exploration of mechanical watchmaking.</span
+          ><span>Made to be explored.</span>
+        </div>
+      </section>
+    </main>
+    <dialog id="about" aria-labelledby="about-title">
+      <button
+        id="about-close"
+        class="dialog-close"
+        aria-label="Close calibre details"
+      >
+        ×</button
+      ><span class="eyebrow">INSIDE CALIBRE 01</span>
+      <h2 id="about-title">A little world.<br />In constant motion.</h2>
+      <p>
+        A conceptual skeleton timepiece, built entirely from procedural
+        geometry. Explore seven assembly layers, from the exhibition caseback to
+        the crystal.
+      </p>
+      <dl>
+        <div>
+          <dt>01 / Case & strap</dt>
+          <dd>The structure that holds everything together.</dd>
+        </div>
+        <div>
+          <dt>02 / Gear train</dt>
+          <dd>Connected wheels carry the rhythm through the movement.</dd>
+        </div>
+        <div>
+          <dt>03 / Balance & bridges</dt>
+          <dd>
+            An oscillating balance and spiral hairspring bring the mechanism to
+            life.
+          </dd>
+        </div>
+        <div>
+          <dt>04 / Dial, hands & crystal</dt>
+          <dd>Precision becomes something you can read.</dd>
+        </div>
+      </dl>
+      <p class="dialog-note">
+        An artistic mechanical simulation, not a manufacturing blueprint.
+        Specifications describe the concept timepiece.
+      </p>
+      <button class="primary" id="about-explore">
+        Discover the layers <span>↗</span>
+      </button>
+    </dialog>
+    <div
+      class="sr-only"
+      id="announcement"
+      role="status"
+      aria-live="polite"
+    ></div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
