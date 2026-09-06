@@ -1,4 +1,4 @@
-name: Deploy ChronoCore to GitHub Pages
+name: Deploy 3D Product projects to GitHub Pages
 
 on:
   push:
@@ -25,12 +25,22 @@ jobs:
         with:
           node-version: 22
           cache: npm
-      - name: Install dependencies
-        run: npm ci
-      - name: Verify
-        run: npm test
-      - name: Build
-        run: npm run build
+          cache-dependency-path: ChronoCore/package-lock.json
+      - name: Build every project
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p dist
+          cp site/index.html dist/index.html
+          for project in */; do
+            if [ -f "${project}package.json" ]; then
+              name="${project%/}"
+              echo "Building ${name}"
+              npm ci --prefix "${project}"
+              npm test --prefix "${project}"
+              npm run build --prefix "${project}" -- --outDir "${GITHUB_WORKSPACE}/dist/${name}"
+            fi
+          done
       - name: Configure Pages
         uses: actions/configure-pages@v5
         with:
